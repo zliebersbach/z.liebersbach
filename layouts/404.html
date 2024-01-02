@@ -1,0 +1,11 @@
+{{ define "title" }}
+    404 - {{ .Site.Title }}
+{{ end }}
+
+{{ define "header" }}
+    {{ partial "navbar.html" (dict "Page" . "TitleOnly" true) }}
+{{ end }}
+
+{{ define "main" }}
+    <h1>You found a (mostly) empty corner of the net.</h1>
+{{ end }}
