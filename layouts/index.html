@@ -1,0 +1,17 @@
+{{ define "title" }}
+    {{ .Site.Title }}
+{{ end }}
+
+{{ define "header" }}
+    {{ partial "header.html" (dict "Page" . "TitleOnly" true) }}
+{{ end }}
+
+{{ define "main" }}
+    <main id="home">
+        <p>welcome to my space.</p>
+
+        <a href="about/?_anim_navbar=true">about.</a>
+        <a href="tech/?_anim_navbar=true">tech.</a>
+        <a href="art/?_anim_navbar=true">art.</a>
+    </main>
+{{ end }}

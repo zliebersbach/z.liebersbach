@@ -1,13 +1,65 @@
-html {
+html,
+body {
     font-family: Helvetica, Arial, sans-serif;
+
+    block-size: 100%;
+    inline-size: 100%;
+
+    margin: 0;
 }
 
+/* variables */
+
+html {
+    --white: #fff;
+    --black: #222;
+    --true-black: #000;
+
+    --border: #444;
+
+    --padding-unit: calc(1rem / 4);
+
+    color: var(--black);
+    background-color: var(--white);
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        --white: #222;
+        --black: #eee;
+        --true-black: #fff;
+
+        --border: #ddd;
+    }
+}
+
+/* element: a */
+a.nostyle {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* element: button */
+button {
+    color: inherit;
+}
+
+/* element: main */
+main {
+    padding: var(--padding-unit);
+}
+
+/* file: partials/navbar.html */
+
 header {
+    position: sticky;
+    z-index: 100;
+
     display: flex;
     flex-direction: row;
     align-items: center;
 
-    border-block-end: 1px solid #444;
+    border-block-end: 1px solid var(--border);
 }
 
 header.invisible {
@@ -15,33 +67,59 @@ header.invisible {
 }
 
 header.title-only {
-    /* TODO: center title, no buttons */
-    background-color: red;
+    color: #fff;
+    mix-blend-mode: exclusion;
 }
 
-header.title-anim {
-    /* TODO: transition from title-only to normal */
-    animation: navbar-title-anim 375ms ease-in-out 0ms 1;
+header.title-only>:not(#title) {
+    visibility: hidden;
+}
+
+header.title-anim>:not(#title) {
+    /* TODO: reverse transition? */
+    animation: navbar-visibility-anim 375ms ease-in-out;
+    animation-iteration-count: 1;
+}
+
+@keyframes navbar-visibility-anim {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#title {
+    position: relative;
+
+    padding: var(--padding-unit);
+    font-size: 1.5rem;
+}
+
+header.title-only #title {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+header.title-anim #title {
+    /* TODO: reverse transition? */
+    animation: navbar-title-anim 375ms ease-in-out;
+    animation-iteration-count: 1;
 }
 
 @keyframes navbar-title-anim {
     from {
-        background-color: red;
+        left: 50%;
+        transform: translateX(-50%);
     }
     to {
-        background-color: transparent;
+        left: 0;
+        transform: translateY(0%);
     }
 }
 
-#main_icon {
-    padding: 4px;
-    font-size: 1.5rem;
-
-    text-decoration: none;
-    color: inherit;
-}
-
-#main_icon>span {
+#title>span {
     position: relative;
     display: inline-block;
 
@@ -49,11 +127,11 @@ header.title-anim {
     transition: width 250ms ease-in-out;
 }
 
-#main_icon:hover>span {
+#title:hover>span {
     width: 2.5ch;
 }
 
-#main_icon>span:before {
+#title>span:before {
     position: absolute;
     top: 0;
     left: 0;
@@ -66,11 +144,11 @@ header.title-anim {
     transition-delay: 0ms;
 }
 
-#main_icon:hover>span:before {
+#title:hover>span:before {
     opacity: 0;
 }
 
-#main_icon>span:after {
+#title>span:after {
     display: inline-block;
     content: "oë ";
 
@@ -79,16 +157,7 @@ header.title-anim {
     transition-delay: 125ms;
 }
 
-#main_icon:hover>span:after {
-    opacity: 1;
-}
-
-#breadcrumbs {
-    opacity: 0.5;
-    transition: opacity 250ms ease-in-out;
-}
-
-#breadcrumbs:hover {
+#title:hover>span:after {
     opacity: 1;
 }
 
@@ -97,34 +166,48 @@ div.flex_spacer {
 }
 
 #btn_group {
+    align-self: stretch;
+
     display: flex;
-    flex-direction: row;
 }
 #btn_group>* {
-    border: 1px solid #444;
-    border-block-end: none;
-}
-#btn_group button {
-    padding: 4px;
-    margin: 0;
     border: none;
+    border-block-start: 1px solid var(--border);
+    border-inline-start: 1px solid var(--border);
 
-    block-size: calc(1.5rem * 1.15 + 8px);
-    inline-size: calc(1.5rem * 1.15 + 8px);
+    block-size: calc(1.5rem * 1.15 + var(--padding-unit) * 2);
+    aspect-ratio: 1 / 1;
 
-    background: transparent;
-}
-#btn_group button:active {
-    background: #444;
-    border-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #menu_btn {
-    display: flex;
-    justify-content: center;
-    align-items: end;
-}
-#menu_btn>span {
     font-size: 1.5rem;
     line-height: 1.5rem;
+
+    background: transparent; /* remove default styling */
+}
+#menu_btn:active {
+    background: #f00;
+}
+
+/* file: partials/breadcrumbs.html */
+
+#breadcrumbs>* {
+    opacity: 0.5;
+    transition: opacity 250ms ease-in-out;
+}
+
+#breadcrumbs>a:hover {
+    opacity: 1;
+}
+
+/* file: home.html */
+
+#home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

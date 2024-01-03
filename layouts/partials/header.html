@@ -1,0 +1,29 @@
+<header class={{ cond .TitleOnly "title-only" "invisible" }}>
+    <a id="title" class="nostyle" href="/">
+        z<span></span>liebersbach
+    </a>
+
+    {{ partial "breadcrumbs.html" .Page }}
+
+    <div class="flex_spacer"></div>
+
+    <div id="btn_group">
+        <a href="https://www.linkedin.com/in/zliebersbach/" title="linkedin" target="_blank">in</a>
+        <a href="https://github.com/zliebersbach" title="github" target="_blank">gh</a>
+        <button id="menu_btn" title="menu">≡</button>
+    </div>
+</header>
+
+{{ if .TitleOnly | not }}
+<script>
+    const header = document.querySelector('header');
+    const url = new URL(document.location);
+    if (url.searchParams.has('_anim_navbar', 'true')) {
+        header.classList.replace('invisible', 'title-anim');
+        url.searchParams.delete('_anim_navbar');
+    } else {
+        header.classList.remove('invisible');
+    }
+    history.pushState('', null, url.toString());
+</script>
+{{ end }}

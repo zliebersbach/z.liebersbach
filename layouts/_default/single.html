@@ -3,9 +3,11 @@
 {{ end }}
 
 {{ define "header" }}
-    {{ partial "navbar.html" (dict "Page" . "TitleOnly" false) }}
+    {{ partial "header.html" (dict "Page" . "TitleOnly" false) }}
 {{ end }}
 
 {{ define "main" }}
-    {{ .Content }}
+    <main id="single">
+        {{ .Content }}
+    </main>
 {{ end }}

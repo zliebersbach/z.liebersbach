@@ -3,9 +3,11 @@
 {{ end }}
 
 {{ define "header" }}
-    {{ partial "navbar.html" (dict "Page" . "TitleOnly" true) }}
+    {{ partial "header.html" (dict "Page" . "TitleOnly" false) }}
 {{ end }}
 
 {{ define "main" }}
-    <h1>You found a (mostly) empty corner of the net.</h1>
+    <main id="404">
+        <h1>You found a (mostly) empty corner of the net.</h1>
+    </main>
 {{ end }}

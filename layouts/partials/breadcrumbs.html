@@ -1,0 +1,8 @@
+<div id="breadcrumbs">
+    {{ range .Ancestors.Reverse }}
+        {{ if .IsHome | not }}
+            &nbsp;&nbsp;<span>/</span>&nbsp;&nbsp;<a class="nostyle" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{ end }}
+    {{ end }}
+    &nbsp;&nbsp;<span>/</span>&nbsp;&nbsp;<a class="nostyle" href="{{ .RelPermalink }}">{{ cond (eq .Kind "404") "404" .Title }}</a>
+</div>
